@@ -265,20 +265,26 @@ int main()
 	src_gray.convertTo(Src, CV_32FC1);
 	first.convertTo(first, CV_32FC1);
 	cv::Sobel(src_gray, first, CV_32F,1, 0, 3);
-
-	cv::imshow("first", first);
+	cv::Mat second;
+	second.convertTo(second, CV_32FC1);
+	cv::Sobel(first, second, CV_32F, 1, 0, 3);
+	//cv::imshow("first", first);
 	std::cout << first.at<int>(100, 200) << std::endl;
-	for (int i = 0; i < 10/*Src.rows*/; i++)
+	for (int i = 948; i < Src.rows/*Src.rows*/; i++)
 	{
 		std::cout << x1[i] << std::endl;
+		std::cout << "i = "<< i << std::endl;
 		for (int j = x1[i] - 5; j < x1[i] + 5; j++)
 		{
-			if (-1 < 0)
+			//std::cout << "1: " << first.at<float>(i, j)  << " 2: " << second.at<float>(i, j) << std::endl;
+			if (first.at<float>(i,j) >0 && first.at<float>(i, j+1) < 0 && abs(first.at<float>(i, j)-first.at<float>(i, j + 1))>200 )
 			{
-				std::cout << " 1st <０"<<(float) first.at<float>(i, j) << std::endl;
+				
+				std::cout << " x:  "<< j+1+(first.at<float>(i, j)/second.at<float>(i,j)) << std::endl/*(float) first.at<float>(i, j)*/;
 			}
-			std::cout << std::endl;
+			
 		}
+		std::cout << std::endl;
 	}
 	system("pause");
 	/*/algorithm
@@ -290,7 +296,7 @@ int main()
 	system("pause");
 	*/
 	return 0;
-	/*https://blog.csdn.net/weixin_40671425/article/details/91045372?spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4.pc_relevant_default&utm_relevant_index=8*/
+
 }
 
 
