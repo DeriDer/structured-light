@@ -8,6 +8,30 @@ using namespace std;
 using namespace cv;
 
 
+int binarysearch(int arr[], int l, int r, int num) {
+	int middle;
+	//while the Left ref is less than the right ref
+	while (l < r)
+	{
+		if (r - l == 1)
+			return l;
+		middle = l + (r - l) / 2; //set middle ref to midpoint
+		if (arr[middle] > num)
+		{
+			return binarysearch(arr, l, middle, num); //recursively performs binary search again while setting the right ref to the middle if num searched is less than middle
+		}
+		else if (arr[middle] < num)
+		{
+			return binarysearch(arr, middle + 1, r, num); // recursively performs binary search again while setting the left ref to the middle if num is greater than middle
+		}
+		else
+		{
+			return middle;
+		}
+	}
+}
+
+
 struct EV_VAL_VEC {
 	double nx, ny;//nx、ny为最大特征值对应的特征向量
 };
